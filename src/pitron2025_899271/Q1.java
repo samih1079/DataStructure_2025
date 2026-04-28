@@ -2,9 +2,8 @@ package pitron2025_899271;
 
 import ds.Node;
 
-public class Q1
-{
-    class  Game {
+public class Q1 {
+    class Game {
         private String name;
         private int price;
 
@@ -21,6 +20,7 @@ public class Q1
             return price;
         }
     }
+
     class Strore {
         private Node<Game> lst;
 
@@ -32,8 +32,7 @@ public class Q1
             Node<Game> current = lst;
             Node<Game> prev = null;
             int removed = count;
-            while (current != null && count > 0)
-            {
+            while (current != null && count > 0) {
                 if (current.getValue().getPrice() == price) {
                     if (prev == null) { // Removing head
                         lst = current.getNext();
@@ -63,13 +62,12 @@ public class Q1
         }
 
         public int removeCheapestGames(int num) {
-            int sum=0;
-            while(num>0)
-            {
+            int sum = 0;
+            while (num > 0) {
                 int minPrice = getCheapestPrice();
                 int removed = removeGamesByPrice(minPrice, num);
-                sum+=removed * minPrice;
-                num-=removed;
+                sum += removed * minPrice;
+                num -= removed;
             }
             return sum;
         }

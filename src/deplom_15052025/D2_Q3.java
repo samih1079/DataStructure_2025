@@ -3,19 +3,16 @@ package deplom_15052025;
 import ds.Node;
 import ds.Queue;
 
-public class D2_Q3
-{
+public class D2_Q3 {
 
-    class Short{
+    class Short {
         private int id;//
         private String url;//  ‏رابط الفيلم القصير‏
         private int seen;//‏عدد المشاهدات
         private int suitability;//‏   ‏درجة الملائمة للمشاهد من 0 حتى 10 بحيث أن 10 ملائم جدا ‏
-//constructor / setters /getters
-        private int suitability;//‏   ‏درجة الملائمة للمشاهد من 0 حتى 10 بحيث أن 10 ملائم جدا ‏
+        //constructor / setters /getters
 
-        public Short(int id, String url, int seen, int suitability)
-        {
+        public Short(int id, String url, int seen, int suitability) {
             this.id = id;
             this.url = url;
             this.seen = seen;
@@ -54,56 +51,60 @@ public class D2_Q3
             this.suitability = suitability;
         }
     }
-    class YTBAcount{
+
+    class YTBAcount {
         private String email;
         private Queue<Short> shorts;
         private Node<Short> shortsList;
-        public void addShort(Short s){
-            if(shorts.isEmpty() ){
+
+        public void addShort(Short s) {
+            if (shorts.isEmpty()) {
                 shorts.insert(s);
-            }else{
-                Queue<Short> temp=new Queue<>();
-                while(!shorts.isEmpty() && shorts.head().getSuitability()>=s.suitability){
+            } else {
+                Queue<Short> temp = new Queue<>();
+                while (!shorts.isEmpty() && shorts.head().getSuitability() >= s.suitability) {
                     temp.insert(shorts.remove());
                 }
                 temp.insert(s);
                 while (!shorts.isEmpty())
                     temp.insert(shorts.remove());
-                while(!temp.isEmpty()){
+                while (!temp.isEmpty()) {
                     shorts.insert(temp.remove());
                 }
             }
         }
 
-        public Short removeFirstShort(){
-            if(shorts.isEmpty()) return null;
+        public Short removeFirstShort() {
+            if (shorts.isEmpty()) return null;
             return shorts.remove();
         }
-public void incSuitability(int shortId) {
-    if (shorts.isEmpty()) {
-        Queue<Short> temp = new Queue<>();
-        Short target = null;
 
-        // ابحث عن ال   مع رقم التعريف المحدد وأزلها
-        while (!shorts.isEmpty()) {
-            Short s = shorts.remove();
-            if (s.getId() == shortId) {
-                s.setSuitability(s.getSuitability() + 1); // تعديل درجة الملائمة
-                target = s;// الفيلم الذي تم تعديله لا يرجع للدور
-            } else {
-                temp.insert(s);
+        public void incSuitability(int shortId) {
+            if (shorts.isEmpty()) {
+                Queue<Short> temp = new Queue<>();
+                Short target = null;
+
+                // ابحث عن ال   مع رقم التعريف المحدد وأزلها
+                while (!shorts.isEmpty()) {
+                    Short s = shorts.remove();
+                    if (s.getId() == shortId) {
+                        s.setSuitability(s.getSuitability() + 1); // تعديل درجة الملائمة
+                        target = s;// الفيلم الذي تم تعديله لا يرجع للدور
+                    } else {
+                        temp.insert(s);
+                    }
+                }
+                // استعادة الدور الأصلي
+                while (!temp.isEmpty()) {
+                    shorts.insert(temp.remove());
+                }
+                // اضافة الفيلم الذي تم تعديله
+                addShort(target);
+
             }
         }
-        // استعادة الدور الأصلي
-        while (!temp.isEmpty()) {
-            shorts.insert(temp.remove());
-        }
-        // اضافة الفيلم الذي تم تعديله
-        addShort(target);
 
-    }
-}
-//        public void addShortToSortedList(Short s){
+        //        public void addShortToSortedList(Short s){
 //            if(shortsList == null){
 //                shortsList = new Node<>(s);
 //            }else{
@@ -121,8 +122,7 @@ public void incSuitability(int shortId) {
 //                }
 //            }
 //        }
-        public YTBAcount(String url)
-        {
+        public YTBAcount(String url) {
             this.email = url;
             this.shorts = new Queue<>();
         }
@@ -136,4 +136,5 @@ public void incSuitability(int shortId) {
         }
 
 
+    }
 }
